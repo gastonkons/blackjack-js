@@ -87,7 +87,7 @@ const createCard = (elementHTML) => {
 // Turno de la Computadora
 
 const computerTurn = (pointsMin) => {
-  while (pointsComputer <= pointsMin && pointsMin <= 21) {
+  while (pointsComputer < pointsMin && pointsMin <= 21) {
     createCard(pointsHTML[1]);
     if (pointsMin > 21) {
       break;
@@ -167,7 +167,6 @@ const defaultValues = () => {
 const newGame = () => {
   defaultValues();
   result.classList.remove("active");
-  console.log(deck);
 };
 
 // Eventos
@@ -179,7 +178,6 @@ btnGet.addEventListener("click", () => {
   }
   createCard(pointsHTML[0]);
   if (pointsPlayer > 21) {
-    console.warn("Perdiste :(");
     disableBtn(btnGet);
     disableBtn(btnStop);
     computerTurn(pointsPlayer);
