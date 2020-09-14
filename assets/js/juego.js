@@ -95,19 +95,21 @@ const computerTurn = (pointsMin) => {
 
   // Quién gana?
 
-  if (pointsComputer > 21) {
-    createModal(
-      "You win!",
-      "Congratulations, so next time it won't be so easy.."
-    );
-    toggleActive();
-  } else if (pointsComputer === pointsMin) {
-    createModal("We tie!", "Nobody lost, that's good right?");
-    toggleActive();
-  } else {
-    createModal("You lost.", "I hope you have more luck next time.");
-    toggleActive();
-  }
+  setTimeout(() => {
+    if (pointsComputer > 21) {
+      createModal(
+        "You win!",
+        "Congratulations, so next time it won't be so easy.."
+      );
+      toggleActive();
+    } else if (pointsComputer === pointsMin) {
+      createModal("We tie!", "Nobody lost, that's good right?");
+      toggleActive();
+    } else {
+      createModal("You lost.", "I hope you have more luck next time.");
+      toggleActive();
+    }
+  }, 1000);
 };
 
 // Desabilitar botón
