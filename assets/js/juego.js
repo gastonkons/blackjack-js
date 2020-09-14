@@ -25,6 +25,7 @@ const modal = document.querySelector(".modal");
 // Crear Deck
 
 const createDeck = () => {
+  deck = [];
   for (let i = 2; i <= 10; i++) {
     for (type of typesCard) {
       deck.push(i + type);
@@ -40,7 +41,7 @@ const createDeck = () => {
   return deck;
 };
 
-createDeck();
+deck = createDeck();
 
 // Pedir carta
 
@@ -149,6 +150,7 @@ const createModal = (title, description) => {
 // Valores por default
 
 const defaultValues = () => {
+  deck = createDeck();
   pointsComputer = 0;
   pointsPlayer = 0;
   pointsHTML[0].innerText = 0;
@@ -163,9 +165,9 @@ const defaultValues = () => {
 // Nuevo Juego!
 
 const newGame = () => {
-  createDeck();
   defaultValues();
   result.classList.remove("active");
+  console.log(deck);
 };
 
 // Eventos
