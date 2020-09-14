@@ -9,6 +9,7 @@ const specialCard = ["A", "J", "Q", "K"];
 
 let pointsPlayer = 0;
 let pointsComputer = 0;
+let firstMove = 0;
 
 // Referencias del HTML
 const btnGet = document.querySelector("#btnGet");
@@ -85,12 +86,12 @@ const createCard = (elementHTML) => {
 // Turno de la Computadora
 
 const computerTurn = (pointsMin) => {
-  do {
+  while (pointsComputer <= pointsMin && pointsMin <= 21) {
     createCard(pointsHTML[1]);
     if (pointsMin > 21) {
       break;
     }
-  } while (pointsComputer <= pointsMin && pointsMin <= 21);
+  }
 
   // Quién gana?
 
@@ -154,6 +155,7 @@ const defaultValues = () => {
   disableBtnOff(btnStop);
   cardsComputer.innerHTML = "";
   cardsPlayer.innerHTML = "";
+  firstMove = 0;
 };
 
 // Nuevo Juego!
@@ -167,6 +169,10 @@ const newGame = () => {
 // Eventos
 
 btnGet.addEventListener("click", () => {
+  if (firstMove === 0) {
+    firstMove++;
+    createCard(pointsHTML[1]);
+  }
   createCard(pointsHTML[0]);
   if (pointsPlayer > 21) {
     console.warn("Perdiste :(");
