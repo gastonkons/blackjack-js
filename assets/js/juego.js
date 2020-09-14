@@ -2,23 +2,29 @@
   "use strict";
 
   let deck = [];
-  const typesCard = ["C", "D", "H", "S"];
-  const specialCard = ["A", "J", "Q", "K"];
+  const typesCard = ["C", "D", "H", "S"],
+    specialCard = ["A", "J", "Q", "K"];
 
-  let pointsPlayer = 0;
-  let pointsComputer = 0;
-  let firstMove = 0;
+  let pointsPlayer = 0,
+    pointsComputer = 0,
+    firstMove = 0;
 
   // Referencias del HTML
-  const btnGet = document.querySelector("#btnGet");
-  const btnStop = document.querySelector("#btnStop");
-  const btnNew = document.querySelector("#btnNew");
+  const btnGet = document.querySelector("#btnGet"),
+    btnStop = document.querySelector("#btnStop"),
+    btnNew = document.querySelector("#btnNew");
 
-  const cardsPlayer = document.querySelector("#cardsPlayer");
-  const cardsComputer = document.querySelector("#cardsComputer");
-  const pointsHTML = document.querySelectorAll(".game-players h2 span");
-  const result = document.querySelector(".result");
-  const modal = document.querySelector(".modal");
+  const cardsPlayer = document.querySelector("#cardsPlayer"),
+    cardsComputer = document.querySelector("#cardsComputer"),
+    pointsHTML = document.querySelectorAll(".game-players h2 span"),
+    result = document.querySelector(".result"),
+    modal = document.querySelector(".modal");
+
+  // Inicializar juego
+
+  const initGame = () => {
+    deck = createDeck();
+  };
 
   // Crear Deck
 
@@ -35,11 +41,8 @@
         deck.push(spec + type);
       }
     }
-    deck = _.shuffle(deck);
-    return deck;
+    return _.shuffle(deck);
   };
-
-  deck = createDeck();
 
   // Pedir carta
 
@@ -47,15 +50,14 @@
     if (deck.length === 0) {
       throw "No hay cartas en el deck";
     }
-    let card = deck.pop();
-    return card;
+    return deck.pop();
   };
 
   // Valor de la carta
 
   const valueCard = (card) => {
     const value = card.substring(0, card.length - 1);
-    return !isNaN(value) ? value * 1 : value === "A" ? 11 : 10;
+    return isNaN(value) ? (value === "A" ? 11 : 10) : value * 1;
   };
 
   // Agregar carta al HTML según su indice
@@ -108,7 +110,7 @@
         createModal("You lost.", "I hope you have more luck next time.");
         toggleActive();
       }
-    }, 1000);
+    }, 700);
   };
 
   // Desabilitar botón
@@ -148,7 +150,6 @@
   // Valores por default
 
   const defaultValues = () => {
-    deck = createDeck();
     pointsComputer = 0;
     pointsPlayer = 0;
     pointsHTML[0].innerText = 0;
@@ -163,6 +164,7 @@
   // Nuevo Juego!
 
   const newGame = () => {
+    initGame();
     defaultValues();
     result.classList.remove("active");
   };
@@ -195,4 +197,6 @@
   btnNew.addEventListener("click", () => {
     newGame();
   });
+
+  initGame();
 })();
